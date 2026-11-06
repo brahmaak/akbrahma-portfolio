@@ -1,0 +1,20 @@
+# Secrets: never commit
+.env
+
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local database (we use PostgreSQL)
+db.sqlite3
+
+# User uploads and collected static files
+media/
+staticfiles/
+
+# OS files
+Thumbs.db
+.DS_Store
