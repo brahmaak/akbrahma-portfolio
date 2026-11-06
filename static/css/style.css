@@ -1119,3 +1119,26 @@ h6 {
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 0.4rem 1rem;
 }
+/* ---------- 23. Dashboard extras ---------- */
+.mini-bar {
+  display: inline-block;
+  width: 90px;
+  height: 6px;
+  margin-right: 0.5rem;
+  overflow: hidden;
+  vertical-align: middle;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.15);
+}
+
+.mini-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient);
+}
+
+/* Make the date picker icon visible on the dark background */
+.form-control[type="date"] {
+  color-scheme: dark;
+}

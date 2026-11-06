@@ -29,8 +29,8 @@
         <a href="{% url 'dashboard:home' %}" class="{% if url_name == 'home' %}active{% endif %}"><i class="bi bi-grid"></i> Overview</a>
         <!-- These links point to "#" until we build each section -->
                 <a href="{% url 'dashboard:project_list' %}" class="{% if 'project' in url_name %}active{% endif %}"><i class="bi bi-kanban"></i> Projects</a>
-        <a href="#"><i class="bi bi-lightning-charge"></i> Skills</a>
-        <a href="#"><i class="bi bi-briefcase"></i> Experience</a>
+                <a href="{% url 'dashboard:skill_list' %}" class="{% if 'skill' in url_name %}active{% endif %}"><i class="bi bi-lightning-charge"></i> Skills</a>
+        <a href="{% url 'dashboard:experience_list' %}" class="{% if 'experience' in url_name %}active{% endif %}"><i class="bi bi-briefcase"></i> Experience</a>
         <a href="#"><i class="bi bi-envelope"></i> Messages</a>
         <a href="#"><i class="bi bi-person-circle"></i> Profile</a>
       </nav>

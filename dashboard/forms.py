@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.files.uploadedfile import UploadedFile
 
-from portfolio.models import Project
+from portfolio.models import Experience, Project, Skill
 
 MAX_IMAGE_SIZE_MB = 2
 
@@ -65,3 +65,31 @@ class ProjectForm(BootstrapFormMixin, forms.ModelForm):
 
     def clean_thumbnail(self):
         return validate_image_size(self.cleaned_data.get("thumbnail"))
+
+
+class SkillForm(BootstrapFormMixin, forms.ModelForm):
+    class Meta:
+        model = Skill
+        fields = ["name", "category", "proficiency", "icon_class", "order"]
+        widgets = {
+            "proficiency": forms.NumberInput(attrs={"min": 0, "max": 100}),
+        }
+
+
+class ExperienceForm(BootstrapFormMixin, forms.ModelForm):
+    class Meta:
+        model = Experience
+        fields = [
+            "entry_type",
+            "role",
+            "organization",
+            "start_date",
+            "end_date",
+            "description",
+        ]
+        widgets = {
+            # type="date" shows the browser's date picker; the format pre-fills it when editing
+            "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "end_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "description": forms.Textarea(attrs={"rows": 4}),
+        }
