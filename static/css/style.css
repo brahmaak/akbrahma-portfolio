@@ -1,0 +1,245 @@
+/* =========================================================
+   A K Brahma Portfolio: Design System
+   ========================================================= */
+
+/* ---------- 1. Design tokens (change colours here only) ---------- */
+:root,
+[data-bs-theme="dark"] {
+  --bg: #0b0f19;
+  --bg-elevated: #111827;
+  --surface: #161e2e;
+  --border: rgba(148, 163, 184, 0.14);
+  --text: #e5e7eb;
+  --text-muted: #94a3b8;
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --accent-glow: rgba(34, 211, 238, 0.35);
+  --gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
+
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Space Grotesk", var(--font-body);
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius: 14px;
+  --nav-height: 72px;
+  --transition: 0.25s ease;
+
+  /* Make Bootstrap use our colours */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-body-font-family: var(--font-body);
+  --bs-border-color: var(--border);
+  --bs-link-color-rgb: 34, 211, 238;
+  --bs-link-hover-color-rgb: 167, 139, 250;
+}
+
+/* ---------- 2. Base ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--nav-height); /* space for the fixed navbar */
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+main {
+  flex: 1; /* pushes the footer to the bottom on short pages */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  left: 1rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ---------- 3. Utilities ---------- */
+.section {
+  padding: 6rem 0;
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.text-gradient {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-muted-soft {
+  color: var(--text-muted) !important;
+}
+
+/* ---------- 4. Buttons ---------- */
+.btn-accent {
+  border: none;
+  border-radius: 10px;
+  background: var(--gradient);
+  color: var(--bg);
+  font-weight: 600;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.btn-accent:hover,
+.btn-accent:focus-visible {
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.btn-outline-accent {
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.btn-outline-accent:hover,
+.btn-outline-accent:focus-visible {
+  background: rgba(34, 211, 238, 0.1);
+  color: var(--accent);
+}
+
+/* ---------- 5. Navbar ---------- */
+.site-nav {
+  min-height: var(--nav-height);
+  background: rgba(11, 15, 25, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.site-nav.scrolled {
+  background: rgba(11, 15, 25, 0.95);
+  border-bottom-color: var(--border);
+}
+
+.brand {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: #fff;
+}
+
+.brand-bracket {
+  color: var(--accent);
+}
+
+.site-nav .nav-link {
+  position: relative;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.site-nav .nav-link:hover,
+.site-nav .nav-link.active {
+  color: #fff;
+}
+
+.site-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: var(--bs-nav-link-padding-x);
+  right: var(--bs-nav-link-padding-x);
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient);
+}
+
+.navbar-toggler {
+  border-color: var(--border);
+}
+
+/* Mobile menu panel */
+@media (max-width: 991.98px) {
+  .site-nav .navbar-collapse {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+  }
+
+  .site-nav .nav-link.active::after {
+    display: none;
+  }
+}
+
+/* ---------- 6. Footer ---------- */
+.site-footer {
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.social-link {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+.social-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- 7. Respect users who prefer less motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
