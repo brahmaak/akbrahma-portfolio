@@ -18,7 +18,11 @@
              href="{% url 'core:home' %}">Home</a>
         </li>
         <!-- These links point to "#" until we build those pages -->
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item">
+          <a class="nav-link {% if url_name == 'about' %}active{% endif %}"
+             {% if url_name == 'about' %}aria-current="page"{% endif %}
+             href="{% url 'core:about' %}">About</a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="#">Skills</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
         <li class="nav-item ms-lg-2 mt-2 mt-lg-0">

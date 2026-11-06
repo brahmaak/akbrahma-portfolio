@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}About | A K Brahma{% endblock %}
+{% block meta_description %}About A K Brahma, a Full Stack Web Developer specialising in Python, Django, PostgreSQL and modern front-end development.{% endblock %}
+
+{% block content %}
+
+<!-- ===== PAGE HEADER ===== -->
+<section class="page-header">
+  <div class="container">
+    <p class="eyebrow">// about me</p>
+    <h1 class="page-title">About <span class="text-gradient">Me</span></h1>
+    <p class="lead text-muted-soft mb-0">The developer behind the code.</p>
+  </div>
+</section>
+
+<!-- ===== BIO (placeholder text, from the database in Phase 8) ===== -->
+<section class="section pt-4">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 reveal">
+        <div class="about-avatar">
+          <!-- Your real photo replaces this in Phase 8 -->
+          <div class="about-avatar-inner">AKB</div>
+        </div>
+      </div>
+
+      <div class="col-lg-7 reveal">
+        <h2 class="h3 mb-3">I turn ideas into fast, secure and user-friendly web applications.</h2>
+        <p class="text-muted-soft">
+          I'm A K Brahma, a Full Stack Web Developer who enjoys working on every layer of a website,
+          from designing clean, responsive interfaces to building the server logic and databases behind them.
+        </p>
+        <p class="text-muted-soft">
+          I work mainly with Python, Django and PostgreSQL on the back end, and HTML, CSS, JavaScript
+          and Bootstrap on the front end. I care about writing clean, maintainable code and building
+          websites that are secure, accessible and easy to use.
+        </p>
+
+        <ul class="fact-list">
+          <li><i class="bi bi-geo-alt"></i> Based in India</li>
+          <li><i class="bi bi-briefcase"></i> Open to freelance &amp; full-time roles</li>
+          <li><i class="bi bi-envelope"></i> your.email@example.com</li>
+        </ul>
+
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <!-- The resume PDF will be uploaded from the dashboard in Phase 8 -->
+          <a href="#" class="btn btn-accent px-4"><i class="bi bi-download me-2"></i>Download Resume</a>
+          <a href="#" class="btn btn-outline-accent px-4">Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE TIMELINE (sample entries, from the database in Phase 8) ===== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <p class="eyebrow">// journey</p>
+      <h2 class="section-title">Experience &amp; Learning</h2>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <p class="timeline-date">2025 – Present</p>
+            <h3 class="h5 mb-1">Freelance Full Stack Developer</h3>
+            <p class="timeline-org">Self-employed</p>
+            <p class="text-muted-soft mb-0">Building responsive websites and Django web applications for clients, from planning to deployment.</p>
+          </li>
+          <li class="timeline-item reveal">
+            <p class="timeline-date">2024 – 2025</p>
+            <h3 class="h5 mb-1">Full Stack Web Development</h3>
+            <p class="timeline-org">Self-learning &amp; personal projects</p>
+            <p class="text-muted-soft mb-0">Learned HTML, CSS, JavaScript, Python, Django, PostgreSQL and Git by building real projects.</p>
+          </li>
+          <li class="timeline-item reveal">
+            <p class="timeline-date">20XX – 20XX</p>
+            <h3 class="h5 mb-1">Your Degree or Course</h3>
+            <p class="timeline-org">Your College or Institute</p>
+            <p class="text-muted-soft mb-0">Replace this with your education details.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
