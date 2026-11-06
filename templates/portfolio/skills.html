@@ -28,11 +28,11 @@
               <div class="skill">
                 <div class="d-flex justify-content-between mb-2">
                   <span class="fw-medium">{{ skill.name }}</span>
-                  <span class="skill-level">{{ skill.level }}%</span>
+                  <span class="skill-proficiency">{{ skill.proficiency }}%</span>
                 </div>
                 <div class="skill-bar" role="progressbar" aria-label="{{ skill.name }} proficiency"
-                     aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100">
-                  <div class="skill-bar-fill" style="--level: {{ skill.level }}%;"></div>
+                     aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100">
+                  <div class="skill-bar-fill" style="--proficiency: {{ skill.proficiency }}%;"></div>
                 </div>
               </div>
             {% endfor %}

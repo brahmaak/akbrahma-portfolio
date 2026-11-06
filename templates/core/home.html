@@ -80,7 +80,7 @@
   </div>
 </section>
 
-<!-- ===== 3. FEATURED PROJECTS (sample content, from the database in Phase 8) ===== -->
+<!-- ===== 3. FEATURED PROJECTS ===== -->
 <section class="section">
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-5 reveal">
@@ -88,51 +88,23 @@
         <p class="eyebrow">// portfolio</p>
         <h2 class="section-title mb-0">Featured Projects</h2>
       </div>
-        <a href="{% url 'portfolio:projects' %}" class="btn btn-outline-accent">All Projects <i class="bi bi-arrow-right"></i></a>
+      <a href="{% url 'portfolio:projects' %}" class="btn btn-outline-accent">All Projects <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <div class="row g-4">
-      <div class="col-md-6 col-lg-4 reveal">
-        <article class="card-dark project-card">
-          <div class="project-thumb"><i class="bi bi-person-workspace"></i></div>
-          <div class="project-body">
-            <h3 class="h5">Developer Portfolio CMS</h3>
-            <p class="text-muted-soft">This website: a portfolio with a secure dashboard to manage projects, skills and messages.</p>
-            <div class="tech-tags">
-              <span class="tech-tag">Django</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Bootstrap</span>
-            </div>
-          </div>
-        </article>
-      </div>
-      <div class="col-md-6 col-lg-4 reveal">
-        <article class="card-dark project-card">
-          <div class="project-thumb"><i class="bi bi-cart3"></i></div>
-          <div class="project-body">
-            <h3 class="h5">E-commerce Store</h3>
-            <p class="text-muted-soft">Sample project: product catalogue, shopping cart and order management.</p>
-            <div class="tech-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">Django</span><span class="tech-tag">JavaScript</span>
-            </div>
-          </div>
-        </article>
-      </div>
-      <div class="col-md-6 col-lg-4 reveal">
-        <article class="card-dark project-card">
-          <div class="project-thumb"><i class="bi bi-kanban"></i></div>
-          <div class="project-body">
-            <h3 class="h5">Task Manager App</h3>
-            <p class="text-muted-soft">Sample project: create, organise and track tasks with user accounts.</p>
-            <div class="tech-tags">
-              <span class="tech-tag">Django</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">JavaScript</span>
-            </div>
-          </div>
-        </article>
-      </div>
+      {% for project in featured_projects %}
+        <div class="col-md-6 col-lg-4 reveal">
+          {% include "portfolio/_project_card.html" %}
+        </div>
+      {% empty %}
+        <p class="text-muted-soft">Featured projects coming soon.</p>
+      {% endfor %}
     </div>
   </div>
 </section>
 
 <!-- ===== 4. TECH STACK ===== -->
+{% if skills %}
 <section class="section section-alt">
   <div class="container text-center">
     <div class="reveal">
@@ -140,18 +112,16 @@
       <h2 class="section-title mb-5">Technologies I Work With</h2>
     </div>
     <div class="d-flex flex-wrap justify-content-center gap-3 reveal">
-      <span class="stack-chip"><i class="bi bi-filetype-html"></i> HTML5</span>
-      <span class="stack-chip"><i class="bi bi-filetype-css"></i> CSS3</span>
-      <span class="stack-chip"><i class="bi bi-filetype-js"></i> JavaScript</span>
-      <span class="stack-chip"><i class="bi bi-bootstrap"></i> Bootstrap</span>
-      <span class="stack-chip"><i class="bi bi-filetype-py"></i> Python</span>
-      <span class="stack-chip"><i class="bi bi-hdd-stack"></i> Django</span>
-      <span class="stack-chip"><i class="bi bi-database"></i> PostgreSQL</span>
-      <span class="stack-chip"><i class="bi bi-git"></i> Git</span>
-      <span class="stack-chip"><i class="bi bi-github"></i> GitHub</span>
+      {% for skill in skills %}
+        <span class="stack-chip">
+          {% if skill.icon_class %}<i class="bi {{ skill.icon_class }}"></i>{% endif %}
+          {{ skill.name }}
+        </span>
+      {% endfor %}
     </div>
   </div>
 </section>
+{% endif %}
 
 <!-- ===== 5. CALL TO ACTION ===== -->
 <section class="section">

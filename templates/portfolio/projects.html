@@ -19,8 +19,8 @@
     <!-- Filter buttons -->
     <div class="d-flex flex-wrap align-items-center gap-2 mb-2" role="group" aria-label="Filter projects by technology">
       <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-      {% for tech in technologies %}
-        <button type="button" class="filter-btn" data-filter="{{ tech }}" aria-pressed="false">{{ tech }}</button>
+            {% for tech in technologies %}
+        <button type="button" class="filter-btn" data-filter="{{ tech.name }}" aria-pressed="false">{{ tech.name }}</button>
       {% endfor %}
     </div>
     <p id="project-count" class="small text-muted-soft mb-4" aria-live="polite">{{ projects|length }} projects</p>
@@ -28,7 +28,7 @@
         <!-- Project grid -->
     <div class="row g-4">
       {% for project in projects %}
-        <div class="col-md-6 col-lg-4 reveal" data-tech="{{ project.technologies|join:'|' }}">
+        <div class="col-md-6 col-lg-4 reveal" data-tech="{{ project.technologies.all|join:'|' }}">
           {% include "portfolio/_project_card.html" %}
         </div>
       {% empty %}
