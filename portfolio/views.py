@@ -1,5 +1,63 @@
 from django.shortcuts import render
 
+# Temporary sample data: replaced by database queries in Phase 8
+SAMPLE_PROJECTS = [
+    {
+        "title": "Developer Portfolio CMS",
+        "slug": "developer-portfolio-cms",
+        "icon": "bi-person-workspace",
+        "summary": "This website: a portfolio with a secure dashboard to manage projects, skills and messages.",
+        "technologies": ["Django", "PostgreSQL", "Bootstrap", "JavaScript"],
+        "github_url": "#",
+        "live_url": "#",
+    },
+    {
+        "title": "E-commerce Store",
+        "slug": "ecommerce-store",
+        "icon": "bi-cart3",
+        "summary": "Product catalogue, shopping cart and order management with user accounts.",
+        "technologies": ["Python", "Django", "PostgreSQL", "JavaScript"],
+        "github_url": "#",
+        "live_url": "#",
+    },
+    {
+        "title": "Task Manager App",
+        "slug": "task-manager-app",
+        "icon": "bi-kanban",
+        "summary": "Create, organise and track tasks with deadlines, priorities and user login.",
+        "technologies": ["Django", "PostgreSQL", "JavaScript"],
+        "github_url": "#",
+        "live_url": "#",
+    },
+    {
+        "title": "Blog Platform",
+        "slug": "blog-platform",
+        "icon": "bi-journal-richtext",
+        "summary": "Multi-author blog with categories, comments and an admin editor.",
+        "technologies": ["Python", "Django", "Bootstrap"],
+        "github_url": "#",
+        "live_url": "#",
+    },
+    {
+        "title": "Weather Dashboard",
+        "slug": "weather-dashboard",
+        "icon": "bi-cloud-sun",
+        "summary": "Live weather search using a public API, with a 5-day forecast.",
+        "technologies": ["JavaScript", "HTML5", "CSS3"],
+        "github_url": "#",
+        "live_url": "#",
+    },
+    {
+        "title": "Restaurant Landing Page",
+        "slug": "restaurant-landing-page",
+        "icon": "bi-shop",
+        "summary": "Responsive restaurant website with menu, gallery and reservation form.",
+        "technologies": ["HTML5", "CSS3", "Bootstrap"],
+        "github_url": "#",
+        "live_url": "#",
+    },
+]
+
 
 def skills(request):
     """Show skills grouped by category."""
@@ -44,3 +102,16 @@ def skills(request):
     ]
     context = {"skill_groups": skill_groups}
     return render(request, "portfolio/skills.html", context)
+
+
+def projects(request):
+    """Show all projects with technology filter buttons."""
+    # Build a sorted list of every technology used, with no duplicates
+    technologies = sorted(
+        {tech for project in SAMPLE_PROJECTS for tech in project["technologies"]}
+    )
+    context = {
+        "projects": SAMPLE_PROJECTS,
+        "technologies": technologies,
+    }
+    return render(request, "portfolio/projects.html", context)

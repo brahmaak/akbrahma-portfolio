@@ -26,3 +26,38 @@ if ("IntersectionObserver" in window) {
   // Very old browsers: just show everything
   revealElements.forEach((el) => el.classList.add("visible"));
 }
+// Project filter buttons (only runs on the Projects page)
+const filterButtons = document.querySelectorAll("[data-filter]");
+const projectItems = document.querySelectorAll("[data-tech]");
+const noProjectsMessage = document.querySelector("#no-projects");
+const projectCount = document.querySelector("#project-count");
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.filter;
+
+    // Highlight the clicked button only
+    filterButtons.forEach((btn) => {
+      const isActive = btn === button;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-pressed", isActive);
+    });
+
+    // Show matching projects, hide the rest
+    let shown = 0;
+    projectItems.forEach((item) => {
+      const techs = item.dataset.tech.split("|");
+      const matches = filter === "all" || techs.includes(filter);
+      item.classList.toggle("d-none", !matches);
+      if (matches) {
+        item.classList.add("visible"); // make sure the fade-in has run
+        shown++;
+      }
+    });
+
+    if (noProjectsMessage)
+      noProjectsMessage.classList.toggle("d-none", shown > 0);
+    if (projectCount)
+      projectCount.textContent = `${shown} project${shown === 1 ? "" : "s"}`;
+  });
+});

@@ -639,3 +639,70 @@ h6 {
 .js .reveal.visible .skill-bar-fill {
   width: var(--level);
 }
+/* ---------- 15. Projects page ---------- */
+.filter-btn {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-btn.active {
+  border-color: transparent;
+  background: var(--gradient);
+  color: var(--bg);
+}
+
+.project-title-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.project-title-link:hover {
+  color: var(--accent);
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.link-accent {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link-accent:hover {
+  color: var(--accent-2);
+}
+
+.project-links {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.project-links a {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+}
+
+.project-links a:hover {
+  color: var(--accent);
+}

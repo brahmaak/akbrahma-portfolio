@@ -18,7 +18,7 @@
           to reliable back-end systems, APIs and databases.
         </p>
         <div class="d-flex flex-wrap gap-3">
-          <a href="#" class="btn btn-accent btn-lg px-4">View My Work</a>
+          <a href="{% url 'portfolio:projects' %}" class="btn btn-accent btn-lg px-4">View My Work</a>
           <a href="#" class="btn btn-outline-accent btn-lg px-4">Contact Me</a>
         </div>
       </div>
@@ -87,7 +87,7 @@
         <p class="eyebrow">// portfolio</p>
         <h2 class="section-title mb-0">Featured Projects</h2>
       </div>
-      <a href="#" class="btn btn-outline-accent">All Projects <i class="bi bi-arrow-right"></i></a>
+        <a href="{% url 'portfolio:projects' %}" class="btn btn-outline-accent">All Projects <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <div class="row g-4">
