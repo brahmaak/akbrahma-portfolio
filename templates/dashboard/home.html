@@ -39,19 +39,22 @@
 <!-- Recent messages -->
 <div class="card-dark">
   <h2 class="h5 mb-3">Recent messages</h2>
-  <ul class="message-list">
+    <ul class="message-list">
     {% for msg in recent_messages %}
-      <li class="message-row">
-        <span class="message-dot {% if not msg.is_read %}unread{% endif %}" aria-hidden="true"></span>
-        <div class="flex-grow-1 min-w-0">
-          <p class="mb-0 fw-semibold text-truncate">{{ msg.subject }}</p>
-          <p class="mb-0 small text-muted-soft text-truncate">{{ msg.name }} · {{ msg.email }}</p>
-        </div>
-        <span class="small text-muted-soft text-nowrap">{{ msg.created_at|timesince }} ago</span>
+      <li>
+        <a href="{% url 'dashboard:message_detail' msg.pk %}" class="message-row message-link">
+          <span class="message-dot {% if not msg.is_read %}unread{% endif %}" aria-hidden="true"></span>
+          <div class="flex-grow-1 min-w-0">
+            <p class="mb-0 text-truncate {% if not msg.is_read %}fw-bold text-white{% endif %}">{{ msg.subject }}</p>
+            <p class="mb-0 small text-muted-soft text-truncate">{{ msg.name }} · {{ msg.email }}</p>
+          </div>
+          <span class="small text-muted-soft text-nowrap">{{ msg.created_at|timesince }} ago</span>
+        </a>
       </li>
     {% empty %}
       <li class="text-muted-soft">No messages yet.</li>
     {% endfor %}
   </ul>
+  <a href="{% url 'dashboard:message_list' %}" class="link-accent small d-inline-block mt-3">View all messages <i class="bi bi-arrow-right"></i></a>
 </div>
 {% endblock %}

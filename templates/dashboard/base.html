@@ -31,8 +31,11 @@
                 <a href="{% url 'dashboard:project_list' %}" class="{% if 'project' in url_name %}active{% endif %}"><i class="bi bi-kanban"></i> Projects</a>
                 <a href="{% url 'dashboard:skill_list' %}" class="{% if 'skill' in url_name %}active{% endif %}"><i class="bi bi-lightning-charge"></i> Skills</a>
         <a href="{% url 'dashboard:experience_list' %}" class="{% if 'experience' in url_name %}active{% endif %}"><i class="bi bi-briefcase"></i> Experience</a>
-        <a href="#"><i class="bi bi-envelope"></i> Messages</a>
-        <a href="#"><i class="bi bi-person-circle"></i> Profile</a>
+                <a href="{% url 'dashboard:message_list' %}" class="{% if 'message' in url_name %}active{% endif %}">
+          <i class="bi bi-envelope"></i> Messages
+          {% if unread_count %}<span class="badge-count">{{ unread_count }}</span>{% endif %}
+        </a>
+        <a href="{% url 'dashboard:profile' %}" class="{% if url_name == 'profile' %}active{% endif %}"><i class="bi bi-person-circle"></i> Profile</a>
       </nav>
       {% endwith %}
 

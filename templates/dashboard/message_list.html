@@ -1,0 +1,54 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <h1 class="h3 mb-0">Messages</h1>
+  <ul class="nav nav-pills dash-tabs">
+    <li class="nav-item">
+      <a class="nav-link {% if show != 'unread' %}active{% endif %}" href="?filter=all">All ({{ total_count }})</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if show == 'unread' %}active{% endif %}" href="?filter=unread">Unread ({{ unread_count }})</a>
+    </li>
+  </ul>
+</div>
+
+<div class="card-dark">
+  <ul class="message-list">
+    {% for msg in page_obj %}
+      <li>
+        <a href="{% url 'dashboard:message_detail' msg.pk %}" class="message-row message-link">
+          <span class="message-dot {% if not msg.is_read %}unread{% endif %}" aria-hidden="true"></span>
+          <div class="flex-grow-1 min-w-0">
+            <p class="mb-0 text-truncate {% if not msg.is_read %}fw-bold text-white{% endif %}">
+              {% if not msg.is_read %}<span class="visually-hidden">Unread: </span>{% endif %}{{ msg.subject }}
+            </p>
+            <p class="mb-0 small text-muted-soft text-truncate">{{ msg.name }} — {{ msg.message|truncatechars:90 }}</p>
+          </div>
+          <span class="small text-muted-soft text-nowrap">{{ msg.created_at|timesince }} ago</span>
+        </a>
+      </li>
+    {% empty %}
+      <li class="text-muted-soft py-4 text-center">
+        {% if show == "unread" %}No unread messages. 🎉{% else %}No messages yet.{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% if page_obj.has_other_pages %}
+    <nav aria-label="Message pages" class="mt-3">
+      <ul class="pagination pagination-sm mb-0">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?filter={{ show }}&page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?filter={{ show }}&page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+</div>
+{% endblock %}

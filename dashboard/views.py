@@ -1,12 +1,21 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.views import LoginView
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from contact.models import ContactMessage
+from core.models import Profile
 from portfolio.models import Experience, Project, Skill
 
-from .forms import ExperienceForm, ProjectForm, SkillForm, StaffAuthenticationForm
+from .forms import (
+    ExperienceForm,
+    ProfileForm,
+    ProjectForm,
+    SkillForm,
+    StaffAuthenticationForm,
+)
 
 
 def staff_required(view_func):
@@ -190,3 +199,66 @@ def experience_delete(request, pk):
     return _delete_view(
         request, entry, list_url="dashboard:experience_list", object_type="entry"
     )
+
+
+# ---------- Messages ----------
+
+
+@staff_required
+def message_list(request):
+    show = request.GET.get("filter", "all")
+    all_messages = ContactMessage.objects.all()
+    if show == "unread":
+        all_messages = all_messages.filter(is_read=False)
+
+    page_obj = Paginator(all_messages, 20).get_page(request.GET.get("page"))
+    context = {
+        "page_obj": page_obj,
+        "show": show,
+        "total_count": ContactMessage.objects.count(),
+    }
+    return render(request, "dashboard/message_list.html", context)
+
+
+@staff_required
+def message_detail(request, pk):
+    msg = get_object_or_404(ContactMessage, pk=pk)
+    if not msg.is_read:  # opening a message marks it as read
+        msg.is_read = True
+        msg.save(update_fields=["is_read"])
+    return render(request, "dashboard/message_detail.html", {"msg": msg})
+
+
+@staff_required
+@require_POST
+def message_toggle_read(request, pk):
+    msg = get_object_or_404(ContactMessage, pk=pk)
+    msg.is_read = not msg.is_read
+    msg.save(update_fields=["is_read"])
+    messages.success(request, "Marked as read." if msg.is_read else "Marked as unread.")
+    return redirect("dashboard:message_list")
+
+
+@staff_required
+def message_delete(request, pk):
+    msg = get_object_or_404(ContactMessage, pk=pk)
+    return _delete_view(
+        request, msg, list_url="dashboard:message_list", object_type="message"
+    )
+
+
+# ---------- Profile ----------
+
+
+@staff_required
+def profile_edit(request):
+    profile = (
+        Profile.load() or Profile()
+    )  # edit the existing profile, or start a new one
+    form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Your profile was updated.")
+        return redirect("dashboard:profile")
+    context = {"form": form, "page_title": "Edit profile", "back_url": "dashboard:home"}
+    return render(request, "dashboard/object_form.html", context)

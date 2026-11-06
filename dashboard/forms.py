@@ -2,9 +2,11 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.files.uploadedfile import UploadedFile
 
+from core.models import Profile
 from portfolio.models import Experience, Project, Skill
 
 MAX_IMAGE_SIZE_MB = 2
+MAX_RESUME_SIZE_MB = 5
 
 
 class BootstrapFormMixin:
@@ -33,13 +35,11 @@ class StaffAuthenticationForm(BootstrapFormMixin, AuthenticationForm):
             )
 
 
-def validate_image_size(image):
-    """Reject newly uploaded images larger than MAX_IMAGE_SIZE_MB."""
-    if isinstance(image, UploadedFile) and image.size > MAX_IMAGE_SIZE_MB * 1024 * 1024:
-        raise forms.ValidationError(
-            f"Image must be smaller than {MAX_IMAGE_SIZE_MB} MB."
-        )
-    return image
+def validate_file_size(upload, max_mb):
+    """Reject newly uploaded files larger than max_mb megabytes."""
+    if isinstance(upload, UploadedFile) and upload.size > max_mb * 1024 * 1024:
+        raise forms.ValidationError(f"File must be smaller than {max_mb} MB.")
+    return upload
 
 
 class ProjectForm(BootstrapFormMixin, forms.ModelForm):
@@ -64,7 +64,10 @@ class ProjectForm(BootstrapFormMixin, forms.ModelForm):
         }
 
     def clean_thumbnail(self):
-        return validate_image_size(self.cleaned_data.get("thumbnail"))
+        return (
+            validate_file_size(self.cleaned_data.get("thumbnail")),
+            MAX_IMAGE_SIZE_MB,
+        )
 
 
 class SkillForm(BootstrapFormMixin, forms.ModelForm):
@@ -93,3 +96,31 @@ class ExperienceForm(BootstrapFormMixin, forms.ModelForm):
             "end_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "description": forms.Textarea(attrs={"rows": 4}),
         }
+
+
+class ProfileForm(BootstrapFormMixin, forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            "name",
+            "title",
+            "tagline",
+            "bio",
+            "photo",
+            "resume",
+            "email",
+            "location",
+            "github_url",
+            "linkedin_url",
+            "is_available",
+        ]
+        widgets = {
+            "tagline": forms.Textarea(attrs={"rows": 2}),
+            "bio": forms.Textarea(attrs={"rows": 8}),
+        }
+
+    def clean_photo(self):
+        return validate_file_size(self.cleaned_data.get("photo"), MAX_IMAGE_SIZE_MB)
+
+    def clean_resume(self):
+        return validate_file_size(self.cleaned_data.get("resume"), MAX_RESUME_SIZE_MB)
