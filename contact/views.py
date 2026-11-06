@@ -5,18 +5,16 @@ from .forms import ContactForm
 
 
 def contact(request):
-    """Show the contact form and handle submissions."""
+    """Show the contact form and save valid submissions."""
     if request.method == "POST":
-        # The user submitted the form: fill it with their data and validate
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Phase 8: save the message to the database here
+            form.save()  # creates a ContactMessage row in PostgreSQL
             messages.success(
                 request, "Thanks for your message! I'll get back to you soon."
             )
-            return redirect("contact:contact")  # POST → Redirect → GET
+            return redirect("contact:contact")
     else:
-        # First visit: show an empty form
         form = ContactForm()
 
     return render(request, "contact/contact.html", {"form": form})
