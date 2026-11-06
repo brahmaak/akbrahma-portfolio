@@ -1,13 +1,169 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="section">
+
+<!-- ===== 1. HERO ===== -->
+<section class="hero">
   <div class="container">
-    <p class="eyebrow">// layout test</p>
-    <h1 class="display-5">Hello, I'm <span class="text-gradient">A K Brahma</span></h1>
-    <p class="lead text-muted-soft">The base layout works. We'll design the real home page in the next task.</p>
-    <a href="#" class="btn btn-accent me-2">Primary button</a>
-    <a href="#" class="btn btn-outline-accent">Outline button</a>
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="status-badge mb-4">
+          <span class="status-dot"></span> Available for freelance work
+        </span>
+        <p class="eyebrow mb-2">Hi, my name is</p>
+        <h1 class="hero-title mb-3"><span class="text-gradient">A K Brahma</span></h1>
+        <p class="hero-role mb-4">Full Stack Web Developer</p>
+        <p class="lead text-muted-soft mb-4">
+          I build fast, secure and scalable web applications, from pixel-perfect interfaces
+          to reliable back-end systems, APIs and databases.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#" class="btn btn-accent btn-lg px-4">View My Work</a>
+          <a href="#" class="btn btn-outline-accent btn-lg px-4">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="code-window" aria-hidden="true">
+          <div class="code-window-bar">
+            <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+          </div>
+<pre><span class="tok-kw">const</span> developer = {
+  <span class="tok-key">name</span>: <span class="tok-str">"A K Brahma"</span>,
+  <span class="tok-key">role</span>: <span class="tok-str">"Full Stack Web Developer"</span>,
+  <span class="tok-key">frontend</span>: [<span class="tok-str">"HTML"</span>, <span class="tok-str">"CSS"</span>, <span class="tok-str">"JavaScript"</span>, <span class="tok-str">"Bootstrap"</span>],
+  <span class="tok-key">backend</span>: [<span class="tok-str">"Python"</span>, <span class="tok-str">"Django"</span>],
+  <span class="tok-key">database</span>: <span class="tok-str">"PostgreSQL"</span>,
+  <span class="tok-key">available</span>: <span class="tok-bool">true</span>,
+};</pre>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- ===== 2. WHAT I DO ===== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <p class="eyebrow">// services</p>
+      <h2 class="section-title">What I Do</h2>
+      <p class="text-muted-soft mx-auto" style="max-width: 600px;">
+        End-to-end web development, from the first wireframe to a live, secure website.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="card-dark">
+          <div class="card-icon"><i class="bi bi-window-sidebar"></i></div>
+          <h3 class="h5">Frontend Development</h3>
+          <p class="text-muted-soft mb-0">Responsive, accessible interfaces with HTML5, CSS3, JavaScript and Bootstrap that look great on every device.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="card-dark">
+          <div class="card-icon"><i class="bi bi-server"></i></div>
+          <h3 class="h5">Backend Development</h3>
+          <p class="text-muted-soft mb-0">Secure server-side logic, authentication and APIs built with Python and Django.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="card-dark">
+          <div class="card-icon"><i class="bi bi-database"></i></div>
+          <h3 class="h5">Database &amp; Deployment</h3>
+          <p class="text-muted-soft mb-0">Well-designed PostgreSQL databases, version control with Git, and deployment to the cloud.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. FEATURED PROJECTS (sample content, from the database in Phase 8) ===== -->
+<section class="section">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-5 reveal">
+      <div>
+        <p class="eyebrow">// portfolio</p>
+        <h2 class="section-title mb-0">Featured Projects</h2>
+      </div>
+      <a href="#" class="btn btn-outline-accent">All Projects <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal">
+        <article class="card-dark project-card">
+          <div class="project-thumb"><i class="bi bi-person-workspace"></i></div>
+          <div class="project-body">
+            <h3 class="h5">Developer Portfolio CMS</h3>
+            <p class="text-muted-soft">This website: a portfolio with a secure dashboard to manage projects, skills and messages.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Django</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Bootstrap</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <article class="card-dark project-card">
+          <div class="project-thumb"><i class="bi bi-cart3"></i></div>
+          <div class="project-body">
+            <h3 class="h5">E-commerce Store</h3>
+            <p class="text-muted-soft">Sample project: product catalogue, shopping cart and order management.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">Django</span><span class="tech-tag">JavaScript</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <article class="card-dark project-card">
+          <div class="project-thumb"><i class="bi bi-kanban"></i></div>
+          <div class="project-body">
+            <h3 class="h5">Task Manager App</h3>
+            <p class="text-muted-soft">Sample project: create, organise and track tasks with user accounts.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Django</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">JavaScript</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. TECH STACK ===== -->
+<section class="section section-alt">
+  <div class="container text-center">
+    <div class="reveal">
+      <p class="eyebrow">// toolbox</p>
+      <h2 class="section-title mb-5">Technologies I Work With</h2>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center gap-3 reveal">
+      <span class="stack-chip"><i class="bi bi-filetype-html"></i> HTML5</span>
+      <span class="stack-chip"><i class="bi bi-filetype-css"></i> CSS3</span>
+      <span class="stack-chip"><i class="bi bi-filetype-js"></i> JavaScript</span>
+      <span class="stack-chip"><i class="bi bi-bootstrap"></i> Bootstrap</span>
+      <span class="stack-chip"><i class="bi bi-filetype-py"></i> Python</span>
+      <span class="stack-chip"><i class="bi bi-hdd-stack"></i> Django</span>
+      <span class="stack-chip"><i class="bi bi-database"></i> PostgreSQL</span>
+      <span class="stack-chip"><i class="bi bi-git"></i> Git</span>
+      <span class="stack-chip"><i class="bi bi-github"></i> GitHub</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. CALL TO ACTION ===== -->
+<section class="section">
+  <div class="container">
+    <div class="cta-box reveal">
+      <p class="eyebrow">// what's next?</p>
+      <h2 class="section-title">Let's Build Something Great Together</h2>
+      <p class="text-muted-soft mx-auto mb-4" style="max-width: 560px;">
+        Have a project in mind or need a developer for your team? I'd love to hear about it.
+      </p>
+      <a href="#" class="btn btn-accent btn-lg px-5">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
