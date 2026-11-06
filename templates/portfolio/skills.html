@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Skills | A K Brahma{% endblock %}
+{% block meta_description %}Technical skills of A K Brahma: HTML, CSS, JavaScript, Bootstrap, Python, Django, PostgreSQL and Git.{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <p class="eyebrow">// skills</p>
+    <h1 class="page-title">My <span class="text-gradient">Skills</span></h1>
+    <p class="lead text-muted-soft mb-0">The technologies I use to build complete web applications.</p>
+  </div>
+</section>
+
+<section class="section pt-4">
+  <div class="container">
+    <div class="row g-4">
+      {% for group in skill_groups %}
+        <div class="col-md-6 reveal">
+          <div class="card-dark">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="card-icon mb-0"><i class="bi {{ group.icon }}"></i></div>
+              <h2 class="h4 mb-0">{{ group.category }}</h2>
+            </div>
+
+            {% for skill in group.skills %}
+              <div class="skill">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="fw-medium">{{ skill.name }}</span>
+                  <span class="skill-level">{{ skill.level }}%</span>
+                </div>
+                <div class="skill-bar" role="progressbar" aria-label="{{ skill.name }} proficiency"
+                     aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100">
+                  <div class="skill-bar-fill" style="--level: {{ skill.level }}%;"></div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted-soft">No skills added yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

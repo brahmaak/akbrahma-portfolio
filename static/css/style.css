@@ -605,3 +605,37 @@ h6 {
   color: var(--text-muted);
   font-weight: 500;
 }
+/* ---------- 14. Skills ---------- */
+.skill + .skill {
+  margin-top: 1.25rem;
+}
+
+.skill-level {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.skill-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.15);
+}
+
+.skill-bar-fill {
+  width: var(--level);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient);
+  transition: width 1s ease 0.2s;
+}
+
+/* Bars start empty and fill up when the card scrolls into view */
+.js .reveal .skill-bar-fill {
+  width: 0;
+}
+
+.js .reveal.visible .skill-bar-fill {
+  width: var(--level);
+}

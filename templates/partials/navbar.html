@@ -23,7 +23,11 @@
              {% if url_name == 'about' %}aria-current="page"{% endif %}
              href="{% url 'core:about' %}">About</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#">Skills</a></li>
+                <li class="nav-item">
+          <a class="nav-link {% if url_name == 'skills' %}active{% endif %}"
+             {% if url_name == 'skills' %}aria-current="page"{% endif %}
+             href="{% url 'portfolio:skills' %}">Skills</a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
         <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
           <a class="btn btn-accent btn-sm px-3" href="#">Hire Me</a>
