@@ -1,11 +1,16 @@
 <footer class="site-footer">
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-    <p class="mb-0">&copy; {% now "Y" %} A K Brahma. Built with Django &amp; PostgreSQL.</p>
+    <p class="mb-0">&copy; {% now "Y" %} {{ profile.name|default:"A K Brahma" }}. Built with Django &amp; PostgreSQL.</p>
     <div class="d-flex gap-3">
-      <!-- Real links come from your Profile in the database later -->
-      <a href="#" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-      <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-      <a href="#" class="social-link" aria-label="Email"><i class="bi bi-envelope"></i></a>
+      {% if profile.github_url %}
+        <a href="{{ profile.github_url }}" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      {% endif %}
+      {% if profile.linkedin_url %}
+        <a href="{{ profile.linkedin_url }}" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      {% endif %}
+      {% if profile.email %}
+        <a href="mailto:{{ profile.email }}" class="social-link" aria-label="Email"><i class="bi bi-envelope"></i></a>
+      {% endif %}
     </div>
   </div>
 </footer>

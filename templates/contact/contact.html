@@ -23,14 +23,16 @@
           <div class="card-icon mb-0"><i class="bi bi-envelope"></i></div>
           <div>
             <h2 class="h6 mb-1">Email</h2>
-            <p class="text-muted-soft mb-0">your.email@example.com</p>
+              <p class="text-muted-soft mb-0">
+              {% if profile.email %}<a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% else %}Use the form{% endif %}
+            </p>
           </div>
         </div>
         <div class="contact-item">
           <div class="card-icon mb-0"><i class="bi bi-geo-alt"></i></div>
           <div>
             <h2 class="h6 mb-1">Location</h2>
-            <p class="text-muted-soft mb-0">India · Available for remote work</p>
+             <p class="text-muted-soft mb-0">{{ profile.location|default:"India" }} · Available for remote work</p>
           </div>
         </div>
         <div class="contact-item">

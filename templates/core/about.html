@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}About | A K Brahma{% endblock %}
-{% block meta_description %}About A K Brahma, a Full Stack Web Developer specialising in Python, Django, PostgreSQL and modern front-end development.{% endblock %}
+{% block title %}About | {{ profile.name|default:"A K Brahma" }}{% endblock %}
+{% block meta_description %}About {{ profile.name|default:"A K Brahma" }}, {{ profile.title|default:"Full Stack Web Developer" }}.{% endblock %}
 
 {% block content %}
 
-<!-- ===== PAGE HEADER ===== -->
 <section class="page-header">
   <div class="container">
     <p class="eyebrow">// about me</p>
@@ -14,38 +13,39 @@
   </div>
 </section>
 
-<!-- ===== BIO (placeholder text, from the database in Phase 8) ===== -->
 <section class="section pt-4">
   <div class="container">
     <div class="row g-5 align-items-center">
       <div class="col-lg-5 reveal">
         <div class="about-avatar">
-          <!-- Your real photo replaces this in Phase 8 -->
-          <div class="about-avatar-inner">AKB</div>
+          {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="Photo of {{ profile.name }}">
+          {% else %}
+            <div class="about-avatar-inner">AKB</div>
+          {% endif %}
         </div>
       </div>
 
       <div class="col-lg-7 reveal">
-        <h2 class="h3 mb-3">I turn ideas into fast, secure and user-friendly web applications.</h2>
-        <p class="text-muted-soft">
-          I'm A K Brahma, a Full Stack Web Developer who enjoys working on every layer of a website,
-          from designing clean, responsive interfaces to building the server logic and databases behind them.
-        </p>
-        <p class="text-muted-soft">
-          I work mainly with Python, Django and PostgreSQL on the back end, and HTML, CSS, JavaScript
-          and Bootstrap on the front end. I care about writing clean, maintainable code and building
-          websites that are secure, accessible and easy to use.
-        </p>
+        <h2 class="h3 mb-3">{{ profile.title|default:"Full Stack Web Developer" }}</h2>
+        <div class="text-muted-soft">
+          {% if profile.bio %}
+            {{ profile.bio|linebreaks }}
+          {% else %}
+            <p>Bio coming soon.</p>
+          {% endif %}
+        </div>
 
         <ul class="fact-list">
-          <li><i class="bi bi-geo-alt"></i> Based in India</li>
-          <li><i class="bi bi-briefcase"></i> Open to freelance &amp; full-time roles</li>
-          <li><i class="bi bi-envelope"></i> your.email@example.com</li>
+          {% if profile.location %}<li><i class="bi bi-geo-alt"></i> {{ profile.location }}</li>{% endif %}
+          {% if profile.is_available %}<li><i class="bi bi-briefcase"></i> Open to freelance &amp; full-time roles</li>{% endif %}
+          {% if profile.email %}<li><i class="bi bi-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>{% endif %}
         </ul>
 
         <div class="d-flex flex-wrap gap-3 mt-4">
-          <!-- The resume PDF will be uploaded from the dashboard in Phase 8 -->
-          <a href="#" class="btn btn-accent px-4"><i class="bi bi-download me-2"></i>Download Resume</a>
+          {% if profile.resume %}
+            <a href="{{ profile.resume.url }}" class="btn btn-accent px-4" download><i class="bi bi-download me-2"></i>Download Resume</a>
+          {% endif %}
           <a href="{% url 'contact:contact' %}" class="btn btn-outline-accent px-4">Contact Me</a>
         </div>
       </div>
@@ -53,35 +53,33 @@
   </div>
 </section>
 
-<!-- ===== EXPERIENCE TIMELINE (sample entries, from the database in Phase 8) ===== -->
 <section class="section section-alt">
   <div class="container">
     <div class="text-center mb-5 reveal">
       <p class="eyebrow">// journey</p>
-      <h2 class="section-title">Experience &amp; Learning</h2>
+      <h2 class="section-title">Experience &amp; Education</h2>
     </div>
 
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <ol class="timeline">
-          <li class="timeline-item reveal">
-            <p class="timeline-date">2025 – Present</p>
-            <h3 class="h5 mb-1">Freelance Full Stack Developer</h3>
-            <p class="timeline-org">Self-employed</p>
-            <p class="text-muted-soft mb-0">Building responsive websites and Django web applications for clients, from planning to deployment.</p>
-          </li>
-          <li class="timeline-item reveal">
-            <p class="timeline-date">2024 – 2025</p>
-            <h3 class="h5 mb-1">Full Stack Web Development</h3>
-            <p class="timeline-org">Self-learning &amp; personal projects</p>
-            <p class="text-muted-soft mb-0">Learned HTML, CSS, JavaScript, Python, Django, PostgreSQL and Git by building real projects.</p>
-          </li>
-          <li class="timeline-item reveal">
-            <p class="timeline-date">20XX – 20XX</p>
-            <h3 class="h5 mb-1">Your Degree or Course</h3>
-            <p class="timeline-org">Your College or Institute</p>
-            <p class="text-muted-soft mb-0">Replace this with your education details.</p>
-          </li>
+          {% for item in experiences %}
+            <li class="timeline-item reveal">
+              <p class="timeline-date">
+                {{ item.start_date|date:"M Y" }} –
+                {% if item.is_current %}Present{% else %}{{ item.end_date|date:"M Y" }}{% endif %}
+              </p>
+              <h3 class="h5 mb-1">{{ item.role }}</h3>
+              <p class="timeline-org">
+                <i class="bi {% if item.entry_type == 'education' %}bi-mortarboard{% else %}bi-briefcase{% endif %} me-1"></i>{{ item.organization }}
+              </p>
+              {% if item.description %}
+                <p class="text-muted-soft mb-0">{{ item.description }}</p>
+              {% endif %}
+            </li>
+          {% empty %}
+            <li class="text-muted-soft text-center">Experience coming soon.</li>
+          {% endfor %}
         </ol>
       </div>
     </div>

@@ -7,15 +7,16 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="status-badge mb-4">
-          <span class="status-dot"></span> Available for freelance work
-        </span>
+        {% if profile.is_available %}
+          <span class="status-badge mb-4">
+            <span class="status-dot"></span> Available for freelance work
+          </span>
+        {% endif %}
         <p class="eyebrow mb-2">Hi, my name is</p>
-        <h1 class="hero-title mb-3"><span class="text-gradient">A K Brahma</span></h1>
-        <p class="hero-role mb-4">Full Stack Web Developer</p>
+        <h1 class="hero-title mb-3"><span class="text-gradient">{{ profile.name|default:"A K Brahma" }}</span></h1>
+        <p class="hero-role mb-4">{{ profile.title|default:"Full Stack Web Developer" }}</p>
         <p class="lead text-muted-soft mb-4">
-          I build fast, secure and scalable web applications, from pixel-perfect interfaces
-          to reliable back-end systems, APIs and databases.
+          {{ profile.tagline|default:"I build fast, secure and scalable web applications, from pixel-perfect interfaces to reliable back-end systems." }}
         </p>
         <div class="d-flex flex-wrap gap-3">
           <a href="{% url 'portfolio:projects' %}" class="btn btn-accent btn-lg px-4">View My Work</a>
@@ -29,12 +30,12 @@
             <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
           </div>
 <pre><span class="tok-kw">const</span> developer = {
-  <span class="tok-key">name</span>: <span class="tok-str">"A K Brahma"</span>,
-  <span class="tok-key">role</span>: <span class="tok-str">"Full Stack Web Developer"</span>,
+  <span class="tok-key">name</span>: <span class="tok-str">"{{ profile.name|default:'A K Brahma' }}"</span>,
+  <span class="tok-key">role</span>: <span class="tok-str">"{{ profile.title|default:'Full Stack Web Developer' }}"</span>,
   <span class="tok-key">frontend</span>: [<span class="tok-str">"HTML"</span>, <span class="tok-str">"CSS"</span>, <span class="tok-str">"JavaScript"</span>, <span class="tok-str">"Bootstrap"</span>],
   <span class="tok-key">backend</span>: [<span class="tok-str">"Python"</span>, <span class="tok-str">"Django"</span>],
   <span class="tok-key">database</span>: <span class="tok-str">"PostgreSQL"</span>,
-  <span class="tok-key">available</span>: <span class="tok-bool">true</span>,
+  <span class="tok-key">available</span>: <span class="tok-bool">{% if profile.is_available %}true{% else %}false{% endif %}</span>,
 };</pre>
         </div>
       </div>
