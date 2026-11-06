@@ -839,3 +839,182 @@ h6 {
   color: var(--text-muted);
   font-size: 0.85rem;
 }
+/* ---------- 20. Dashboard layout ---------- */
+.dash-body {
+  padding-top: 0; /* no fixed public navbar here */
+}
+
+.dash-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dash-sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 250px;
+  height: 100vh;
+  padding: 1.5rem 1rem;
+  border-right: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.dash-brand {
+  display: block;
+  margin: 0 0.5rem 2rem;
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+
+.dash-brand small {
+  display: block;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+}
+
+.dash-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dash-nav a,
+.dash-view-site {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.dash-nav a:hover,
+.dash-view-site:hover {
+  background: var(--surface);
+  color: #fff;
+}
+
+.dash-nav a.active {
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--accent);
+}
+
+.dash-sidebar-footer {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.dash-main {
+  flex: 1;
+  min-width: 0; /* stops wide tables from breaking the layout */
+  padding: 2rem;
+}
+
+/* Dashboard on tablets & phones: sidebar becomes a top bar */
+@media (max-width: 991.98px) {
+  .dash-layout {
+    flex-direction: column;
+  }
+
+  .dash-sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dash-brand {
+    margin-bottom: 1rem;
+  }
+
+  .dash-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .dash-nav a {
+    white-space: nowrap;
+  }
+
+  .dash-sidebar-footer {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1rem;
+  }
+
+  .dash-main {
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* ---------- 21. Dashboard components ---------- */
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.stat-value {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+
+.stat-label {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.message-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.message-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.message-row:last-child {
+  border-bottom: 0;
+}
+
+.message-dot {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.message-dot.unread {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.min-w-0 {
+  min-width: 0;
+}
