@@ -752,3 +752,57 @@ h6 {
   font-weight: 700;
   line-height: 1;
 }
+/* ---------- 18. Forms & contact page ---------- */
+.form-label {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.form-control {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: var(--text);
+}
+
+.form-control:focus {
+  border-color: var(--accent);
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 0 0 0 0.2rem rgba(34, 211, 238, 0.15);
+}
+
+.form-control::placeholder {
+  color: #64748b;
+}
+
+/* Django adds aria-invalid="true" to fields with errors */
+.form-control[aria-invalid="true"] {
+  border-color: #f87171;
+}
+
+.field-error {
+  margin-top: 0.4rem;
+  color: #f87171;
+  font-size: 0.875rem;
+}
+
+/* Honeypot: moved off-screen so humans never see it */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-item + .contact-item {
+  margin-top: 1.75rem;
+}
