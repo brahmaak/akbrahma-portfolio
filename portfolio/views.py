@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 # Temporary sample data: replaced by database queries in Phase 8
@@ -115,3 +116,18 @@ def projects(request):
         "technologies": technologies,
     }
     return render(request, "portfolio/projects.html", context)
+
+
+def project_detail(request, slug):
+    """Show one project, found by its slug."""
+    # Find the project whose slug matches the URL, or None if there isn't one
+    project = next((p for p in SAMPLE_PROJECTS if p["slug"] == slug), None)
+    if project is None:
+        raise Http404("Project not found")
+
+    other_projects = [p for p in SAMPLE_PROJECTS if p["slug"] != slug][:3]
+    context = {
+        "project": project,
+        "other_projects": other_projects,
+    }
+    return render(request, "portfolio/project_detail.html", context)

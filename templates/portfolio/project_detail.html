@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} | A K Brahma{% endblock %}
+{% block meta_description %}{{ project.summary }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header pb-4">
+  <div class="container">
+    <a href="{% url 'portfolio:projects' %}" class="back-link"><i class="bi bi-arrow-left"></i> All projects</a>
+    <h1 class="page-title">{{ project.title }}</h1>
+    <p class="lead text-muted-soft mb-0">{{ project.summary }}</p>
+  </div>
+</section>
+
+<section class="section pt-2">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Main content -->
+      <div class="col-lg-8">
+        <!-- Real screenshot replaces this icon in Phase 8 -->
+        <div class="project-thumb project-hero-thumb mb-5"><i class="bi {{ project.icon }}"></i></div>
+
+        <h2 class="h4 mb-3">Overview</h2>
+        <p class="text-muted-soft">
+          A full write-up of this project (the problem, the solution, the challenges and the results)
+          will appear here once projects are stored in the database in Phase 8.
+        </p>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <aside class="card-dark info-card">
+          <p class="info-label">Tech stack</p>
+          <div class="tech-tags pt-0 mb-4">
+            {% for tech in project.technologies %}
+              <span class="tech-tag">{{ tech }}</span>
+            {% endfor %}
+          </div>
+
+          <p class="info-label">Links</p>
+          <div class="d-grid gap-2">
+            <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
+              <i class="bi bi-box-arrow-up-right me-2"></i>Live Demo
+            </a>
+            <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-accent">
+              <i class="bi bi-github me-2"></i>Source Code
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- More projects -->
+{% if other_projects %}
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title mb-4">More Projects</h2>
+    <div class="row g-4">
+      {% for project in other_projects %}
+        <div class="col-md-6 col-lg-4 reveal">
+          {% include "portfolio/_project_card.html" %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

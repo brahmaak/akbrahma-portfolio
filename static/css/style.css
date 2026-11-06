@@ -706,3 +706,49 @@ h6 {
 .project-links a:hover {
   color: var(--accent);
 }
+/* ---------- 16. Project detail ---------- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.project-hero-thumb {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 4rem;
+}
+
+.info-card {
+  position: sticky;
+  top: calc(var(--nav-height) + 1.5rem);
+  height: auto;
+}
+
+.info-label {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- 17. Error pages ---------- */
+.error-code {
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(5rem, 15vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+}
