@@ -64,10 +64,7 @@ class ProjectForm(BootstrapFormMixin, forms.ModelForm):
         }
 
     def clean_thumbnail(self):
-        return (
-            validate_file_size(self.cleaned_data.get("thumbnail")),
-            MAX_IMAGE_SIZE_MB,
-        )
+        return validate_file_size(self.cleaned_data.get("thumbnail"), MAX_IMAGE_SIZE_MB)
 
 
 class SkillForm(BootstrapFormMixin, forms.ModelForm):

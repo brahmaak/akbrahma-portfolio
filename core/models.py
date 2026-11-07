@@ -33,6 +33,8 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         # Always use id 1, so saving never creates a second profile
         self.pk = 1
+        # Never insert a second row: if a profile exists, update it instead
+        kwargs["force_insert"] = False
         super().save(*args, **kwargs)
 
     @classmethod
