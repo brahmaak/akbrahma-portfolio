@@ -150,3 +150,29 @@ MESSAGE_TAGS = {
 LOGIN_URL = "dashboard:login"
 LOGIN_REDIRECT_URL = "dashboard:home"
 LOGOUT_REDIRECT_URL = "dashboard:login"
+
+
+# ---------- Security ----------
+
+# Secret path for the Django admin (set in .env, must end with "/")
+ADMIN_URL = env("ADMIN_URL", default="admin/")
+
+# Websites allowed to submit forms to this site (we'll add the live URL in Phase 12)
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+
+# Log out automatically after 12 hours
+SESSION_COOKIE_AGE = 60 * 60 * 12
+
+# These only apply on the live site (DEBUG=False), which uses HTTPS
+if not DEBUG:
+    # Render's proxy handles HTTPS and tells Django with this header
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # HSTS: start with 1 hour; increase to 1 year once the live site is confirmed working
+    SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=3600)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# HSTS "preload" is a permanent commitment for your own domain, not needed for this site
+SILENCED_SYSTEM_CHECKS = ["security.W021"]

@@ -9,7 +9,7 @@ admin.site.site_title = "Portfolio Admin"
 admin.site.index_title = "Manage your portfolio"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
     path("dashboard/", include("dashboard.urls")),
     path("", include("core.urls")),
     path("", include("portfolio.urls")),
