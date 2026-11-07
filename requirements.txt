@@ -1,5 +1,6 @@
 asgiref==3.13.0
 Django==5.2.19
+django-axes==9.0.0
 django-environ==0.14.0
 pillow==13.0.0
 psycopg==3.3.8

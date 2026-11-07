@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "portfolio",
     "contact",
     "dashboard",
+    # Third-party apps
+    "axes",
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -176,3 +179,20 @@ if not DEBUG:
 
 # HSTS "preload" is a permanent commitment for your own domain, not needed for this site
 SILENCED_SYSTEM_CHECKS = ["security.W021"]
+
+
+# ---------- Login rate limiting (django-axes) ----------
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",  # checks for lockouts first
+    "django.contrib.auth.backends.ModelBackend",  # then the normal username/password check
+]
+
+AXES_FAILURE_LIMIT = 5  # lock after 5 failed attempts
+AXES_COOLOFF_TIME = 1  # unlock automatically after 1 hour
+AXES_RESET_ON_SUCCESS = True  # a successful login clears the failure count
+AXES_LOCKOUT_PARAMETERS = [
+    ["username", "ip_address"]
+]  # lock this username from this IP only
+AXES_LOCKOUT_TEMPLATE = "dashboard/locked.html"
+# Note: on Render, every visitor reaches Django through a proxy. We'll configure
+# Axes to read the visitor's real IP address in Phase 12.

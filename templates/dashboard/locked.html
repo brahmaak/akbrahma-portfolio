@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Too many attempts{% endblock %}
+{% block extra_css %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container text-center" style="max-width: 520px;">
+    <div class="card-dark">
+      <div class="card-icon danger-icon"><i class="bi bi-lock"></i></div>
+      <h1 class="h3 mb-3">Too many login attempts</h1>
+      <p class="text-muted-soft mb-4">
+        For security, logins from your connection are paused for one hour.
+        Please try again later.
+      </p>
+      <a href="{% url 'core:home' %}" class="btn btn-outline-accent px-4">Back to Home</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
