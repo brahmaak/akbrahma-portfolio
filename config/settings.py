@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -91,6 +92,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": env.db("DATABASE_URL"),
 }
+
+DATABASES["default"]["CONN_MAX_AGE"] = (
+    0 if DEBUG else 60
+)  # reuse connections on the live site
+DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
 
 
 # Password validation
@@ -196,3 +202,41 @@ AXES_LOCKOUT_PARAMETERS = [
 AXES_LOCKOUT_TEMPLATE = "dashboard/locked.html"
 # Note: on Render, every visitor reaches Django through a proxy. We'll configure
 # Axes to read the visitor's real IP address in Phase 12.
+
+
+# ---------- Deployment ----------
+
+# Render sets RENDER_EXTERNAL_HOSTNAME automatically, e.g. "akbrahma-portfolio.onrender.com"
+RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME", default="")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_EXTERNAL_HOSTNAME}")
+
+# Uploaded files go to Cloudinary when CLOUDINARY_URL is set (live site),
+# and to the local media/ folder otherwise (your PC)
+USE_CLOUDINARY = bool(env("CLOUDINARY_URL", default=""))
+
+STORAGES = {
+    "default": {
+        "BACKEND": (
+            "cloudinary_storage.storage.MediaCloudinaryStorage"
+            if USE_CLOUDINARY
+            else "django.core.files.storage.FileSystemStorage"
+        ),
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        ),
+    },
+}
+
+# Show errors in the server logs (Render's "Logs" tab) when DEBUG is off
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "root": {"handlers": ["console"], "level": "WARNING"},
+}
